@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>(function(){var t=null;try{t=localStorage.getItem("theme");}catch(e){}var q=/[?&]theme=(dark|light)/.exec(location.search);if(q)t=q[1];if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);})();</script>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="fonts.css?v=20261023175349">
+<link rel="stylesheet" href="style.css?v=20261023175349">
+<link rel="stylesheet" href="site.css?v=20261023175349">
+<title>Shaoxiang Qin</title>
+<meta name="description" content="Shaoxiang Qin, PhD student at McGill University. Projects, research, publications, education and experience.">
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header class="s-wrap s-head" id="top">
+  <div class="s-row">
+    <h1 class="s-name"><span id="name"></span> <span class="s-name-zh" lang="zh" id="name-zh"></span></h1>
+    <nav class="s-nav" aria-label="Sections">
+      <a href="#projects">Projects</a><a href="#research">Research</a><a href="#publications">Publications</a><a href="#education">Education</a>
+      <button class="s-theme" id="theme-btn" type="button" aria-label="Switch to dark mode" title="Switch colour mode">
+        <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="5" fill="currentColor"/><path fill="currentColor" d="M11 1.5h2v3h-2zM11 19.5h2v3h-2zM1.5 11h3v2h-3zM19.5 11h3v2h-3zM4.2 5.6l1.4-1.4 2.1 2.1-1.4 1.4zM16.3 17.7l1.4-1.4 2.1 2.1-1.4 1.4zM4.2 18.4l2.1-2.1 1.4 1.4-2.1 2.1zM16.3 6.3l2.1-2.1 1.4 1.4-2.1 2.1z"/></svg>
+      </button>
+    </nav>
+  </div>
+  <p class="s-roles" id="role"></p>
+  <p class="s-links" id="links"></p>
+  <p class="s-intro" id="intro"></p>
+</header>
+
+<main id="content" class="s-wrap">
+  <section class="s-blk" id="projects" aria-labelledby="h-proj">
+    <h2 id="h-proj">Projects</h2>
+    <div class="s-proj" id="proj"></div>
+  </section>
+
+  <section class="s-blk" id="research" aria-labelledby="h-res">
+    <h2 id="h-res">Research</h2>
+    <div class="s-research" id="research-text"></div>
+    <figure class="map-fig s-map" aria-label="Map of the main papers">
+      <p class="bm-hint">Swipe sideways to see the whole map.</p>
+      <div class="bm-frame">
+        <div class="bm-scroll" id="map-scroll" tabindex="0" aria-label="Map of main papers; scroll sideways on small screens">
+          <div class="bm" id="map"></div>
+        </div>
+      </div>
+      <div class="bm-legend" id="legend"></div>
+      <figcaption id="map-cap"></figcaption>
+    </figure>
+  </section>
+
+  <section class="s-blk" id="publications" aria-labelledby="h-pub">
+    <h2 id="h-pub">Selected Publications</h2>
+    <ol class="s-papers" id="main-list"></ol>
+  </section>
+
+  <section class="s-blk" id="collaborations" aria-labelledby="h-col">
+    <h2 id="h-col">Collaborations</h2>
+    <ol class="s-papers" id="other-list"></ol>
+  </section>
+
+  <section class="s-blk s-two" id="education" aria-label="Education and experience">
+    <div><h2>Education</h2><div class="s-cv" id="edu"></div></div>
+    <div><h2 id="experience">Experience</h2><div class="s-cv" id="exp"></div></div>
+  </section>
+</main>
+
+<script src="content.js?v=20261023175349"></script>
+<script src="main.js?v=20261023175349"></script>
+</body>
+</html>
