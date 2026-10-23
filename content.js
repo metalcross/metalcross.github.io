@@ -88,9 +88,6 @@ window.SITE = {
       authors: "Peng Liu, <b>Shaoxiang Qin</b>, Theodore Potsis, Lili Ji, Dingyang Geng, Liangzhu (Leon) Wang", venue: "arXiv:2610.10430", vyear: "2026",
       links: [{ label: "Paper", href: "https://arxiv.org/abs/2610.10430" }] }
   ],
-
-  edges: [[1, 3], [2, 7], [3, 7], [4, 5], [4, 6]],
-
   others: [
     { year: 2026, title: "ASPIRE: saddle-point discovery through set prediction and physical refinement", authors: "Yucheng Zhao, Quanyou Zhang, <b>Shaoxiang Qin</b>, Haixuan Xu, Xiongye Xiao", venue: "arXiv:2610.10969", href: "https://arxiv.org/abs/2610.10969" },
     { year: 2026, title: "Progressive filtering and cluster-localized calibration for customized UBEM", authors: "Wei Zhou, Navid Shirzadi, Dongxue Zhan, <b>Shaoxiang Qin</b>, Peng Liu, Travis Moore, Liangzhu (Leon) Wang, Andreas Athienitis", venue: "Energy and Buildings, 118250", href: "https://doi.org/10.1016/j.enbuild.2026.118250" },

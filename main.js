@@ -82,12 +82,10 @@
   $("exp").innerHTML = S.experience.map(function (e) { return cv(e.role, e.org, e.place, e.years, e.logo); }).join("");
 
   if (!$("main-list")) return;
-  var cats = ["ts", "mf", "gen"];
   var byN = {}; S.main.forEach(function (p) { byN[p.n] = p; });
   var SVGNS = "http://www.w3.org/2000/svg";
 
   var map = $("map");
-  var rowOf = { 2: "P", 7: "P", 1: "T", 3: "T", 4: "M", 6: "M", 5: "M2", 8: "N" };
   function el(tag, attrs, parent) { var n = document.createElementNS(SVGNS, tag); for (var k in attrs) n.setAttribute(k, attrs[k]); if (parent) parent.appendChild(n); return n; }
   function path(pts, rc) {
     var d = "M" + pts[0][0] + " " + pts[0][1];
@@ -104,11 +102,8 @@
   }
   function nw(t) { return esc(t).replace(/(\S+-\S+)/g, '<span class="nw">$1</span>'); }
 
-  function tn(t) { var i = t.indexOf("-to-"); return i < 0 ? nw(t) : nw(t.slice(0, i + 4)) + "<wbr>" + nw(t.slice(i + 4)); }
   function key(c) { return '<i class="bm-key bm-key-' + c + '" aria-hidden="true"></i>'; }
-  var want = S.edges.map(function (e) { return e.join("-"); }).sort().join(",");
   var mode = null, pinned = [];
-  var CAND = "J";
 
   var DOMLAB = { pde: ["AI for", "PDE/turbulence"], urban: ["AI for", "urban", "microclimate"] };
   var DOMLAB_N = { pde: ["AI for", "PDE/turbulence"], urban: ["AI for", "urban", "microclimate"] };
@@ -155,7 +150,7 @@
     var B = {}; for (var n = 1; n <= 8; n++) B[n] = bx(n);
     var ov = 2;
 
-    var yA = function (b) { return Math.round(b.t + (b.b - b.t) * 0.2); }, yB = function (b) { return Math.round(b.t + (b.b - b.t) * 0.8); };
+    var yB = function (b) { return Math.round(b.t + (b.b - b.t) * 0.8); };
     var xR = B[3].r + 20, xT = B[5].cx,    y27 = Math.round(B[7].t + Math.min(HB[2], HB[7]) * 0.2), y37 = yB(B[7]), y46 = Math.round(B[4].t + Math.min(HB[4], HB[6]) * 0.2), y45 = yB(B[4]), y13 = Math.round(B[1].t + Math.min(HB[1], HB[3]) / 2);
     var LINES = [
       { e: "1-3", cat: "ts", pts: [[B[1].r - ov, y13], [B[3].l + ov, y13]] },
@@ -164,7 +159,6 @@
       { e: "4-5", cat: "mf", pts: [[B[4].r - ov, y45], [xT, y45], [xT, B[5].t + ov]] },
       { e: "4-6", cat: "mf", pts: [[B[4].r - ov, y46], [B[6].l + ov, y46]] }
     ];
-    if (LINES.map(function (l) { return l.e; }).sort().join(",") !== want) console.warn("roadmap edges mismatch");
     var svg = el("svg", { width: G.W, height: G.H, viewBox: "0 0 " + G.W + " " + G.H, class: "bm-svg", "aria-hidden": "true" });
     var yrs = []; S.main.forEach(function (p) { if (yrs.indexOf(p.year) < 0) yrs.push(p.year); });
     yrsN = []; yrs.forEach(function (yy, k) {
@@ -193,7 +187,6 @@
       }
       n.innerHTML = best ? esc(t.slice(0, best.c[0])) + "<br>" + esc(t.slice(best.c[1])) : esc(t); n.style.whiteSpace = "nowrap"; n.style.textAlign = "center";
     }
-    function three(n) { var t = n.dataset.t, bp = [], best = null; for (var i = 1; i < t.length - 1; i++) { if (t[i] === " ") bp.push([i, i + 1]); else if (t[i - 1] === "-" || t[i - 1] === "\u2011") bp.push([i, i]); } for (var a = 0; a < bp.length; a++) for (var b = a + 1; b < bp.length; b++) { var l = [t.slice(0, bp[a][0]), t.slice(bp[a][1], bp[b][0]), t.slice(bp[b][1])], m = Math.max(l[0].length, l[1].length, l[2].length); if (!best || m < best.m) best = { m: m, l: l }; } if (best) n.innerHTML = best.l.map(esc).join("<br>"); }
     function lane(n, x0, x1, y0, y1) { two(n);       n.style.textAlign = "left"; n.style.left = Math.round(x0 + 8) + "px";    n.style.top = Math.round((y0 + y1) / 2 - n.offsetHeight / 2) + "px"; }
     lane(lts, xR + G.lw / 2, B[7].l, y27, y37);
     lane(lmf, B[4].r, xT - G.lw / 2, y46, y45);
@@ -278,7 +271,6 @@
   sc.addEventListener("scroll", syncScroll, { passive: true }); window.addEventListener("resize", syncScroll); syncScroll();
 
   function full(v) {
-    if (/placeholder/i.test(v)) return "";
     if (/^arXiv/.test(v)) return "arXiv";
     return v.replace(/\s*\b20\d\d\b/g, "").replace(/[,\s]*\d[\d()\u2013,\s-]*$/, "").replace(/\s+\(/, " (").trim();
   }
