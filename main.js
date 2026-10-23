@@ -100,9 +100,7 @@
     }
     return d;
   }
-  function nw(t) { return esc(t).replace(/(\S+-\S+)/g, '<span class="nw">$1</span>'); }
 
-  function key(c) { return '<i class="bm-key bm-key-' + c + '" aria-hidden="true"></i>'; }
   var mode = null, pinned = [];
 
   var DOMLAB = { pde: ["AI for", "PDE/turbulence"], urban: ["AI for", "urban", "microclimate"] };
@@ -258,8 +256,6 @@
   drawMap();
   window.addEventListener("resize", drawMap);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { mode = null; drawMap(); });
-  $("map-cap").hidden = true;
-  $("legend").hidden = true;
 
   var sc = $("map-scroll");
   function syncScroll() {
@@ -306,13 +302,16 @@
     clearTimeout(li._hit); li._hit = setTimeout(function () { li.classList.remove("s-hit"); }, 3200);
   }
   document.addEventListener("click", function (e) {
-    var a = e.target.closest('a[href^="#paper-"]');
+    var a = e.target.closest('a[href^="#"]');
     if (!a) return;
+    var id = a.getAttribute("href").slice(1), el = id && document.getElementById(id);
+    if (!el) return;
     e.preventDefault();
-    var id = a.getAttribute("href").slice(1);
-    reveal(id);
+    if (/^paper-\d+$/.test(id)) { reveal(id); return; }
+    el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    if (id === "content") { el.setAttribute("tabindex", "-1"); el.focus({ preventScroll: true }); }
   });
-  if (/^#paper-\d+$/.test(location.hash)) setTimeout(function () { reveal(location.hash.slice(1)); if (history.replaceState) history.replaceState(null, "", location.pathname + location.search); }, 60);
+  if (location.hash.length > 1 && document.getElementById(location.hash.slice(1))) setTimeout(function () { var id = location.hash.slice(1); if (/^paper-\d+$/.test(id)) reveal(id); else document.getElementById(id).scrollIntoView({ block: "start" }); if (history.replaceState) history.replaceState(null, "", location.pathname + location.search); }, 60);
 })();
 
 (function () {
